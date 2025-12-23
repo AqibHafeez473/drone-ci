@@ -8,8 +8,8 @@ trigger:
 
 steps:
   - name: Build Docker Image
-    image: docker:24-dind
-    privileged: true  # Must for DinD
+    image: docker:24-cli
+   
     commands:
       - echo -e "FROM alpine\nCMD [\"echo\",\"Hello, Drone CI!\"]" > Dockerfile
       - docker build -t hello-drone:latest .
