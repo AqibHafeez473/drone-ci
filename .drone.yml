@@ -17,8 +17,7 @@
 #     image: docker:24
 #     commands:
 #       - docker build -t hello-drone:latest .
-#       - docker images  # Check image list in logs
-
+#       - docker images  # Check image list in l
 kind: pipeline
 type: docker
 name: Hello World Build
