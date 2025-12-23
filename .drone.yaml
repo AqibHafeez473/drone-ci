@@ -1,20 +1,37 @@
+# kind: pipeline
+# type: docker
+# name: Hello World Build
+
+# trigger:
+#   branch:
+#     - main  # Ya jis branch pe test karna ho
+
+# steps:
+#   - name: Checkout Code
+#     image: alpine/git
+#     commands:
+#       - git clone --depth 1 https://github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}.git .
+#       - git checkout ${DRONE_BRANCH}
+
+#   - name: Build Docker Image
+#     image: docker:24
+#     commands:
+#       - docker build -t hello-drone:latest .
+#       - docker images  # Check image list in logs
+
 kind: pipeline
 type: docker
 name: Hello World Build
 
 trigger:
   branch:
-    - main  # Ya jis branch pe test karna ho
+    - main
 
 steps:
-  - name: Checkout Code
-    image: alpine/git
-    commands:
-      - git clone --depth 1 https://github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}.git .
-      - git checkout ${DRONE_BRANCH}
-
-  - name: Build Docker Image
+  - name: Build Hello World Image
     image: docker:24
     commands:
+      - echo -e "FROM alpine\nCMD [\"echo\",\"Hello, Drone CI!\"]" > Dockerfile
       - docker build -t hello-drone:latest .
-      - docker images  # Check image list in logs
+      - docker run hello-drone:latest
+
